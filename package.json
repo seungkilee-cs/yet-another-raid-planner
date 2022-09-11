@@ -4,6 +4,7 @@
   "description": "Lost Ark Raid Planner",
   "main": "index.js",
   "dependencies": {
+    "@types/glob": "^8.0.0",
     "acorn": "^8.8.0",
     "acorn-jsx": "^5.3.2",
     "ajv": "^6.12.6",

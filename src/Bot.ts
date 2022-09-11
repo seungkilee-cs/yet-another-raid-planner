@@ -1,4 +1,19 @@
-import { Client } from "discord.js";
-import { REST } from '@discordjs/rest';
+// import { Client } from "discord.js";
+// import { REST } from "@discordjs/rest";
+import { ExtendedClient } from "./Structure/client";
 
-console.log("start");
+import fs from "fs";
+
+const { token } = process.env;
+const {} = require("discord.js");
+
+export const client = new ExtendedClient();
+
+client.loadCommands();
+client.loadEvents();
+// client.commands = new Collection();
+// declare module "discord.js" {
+//   export interface Client {
+//     commands: Collection<unknown, any>;
+//   }
+// }
