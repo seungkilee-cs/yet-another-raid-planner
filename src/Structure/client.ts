@@ -20,8 +20,13 @@ export class ExtendedClient extends Client {
     super({ intents: GatewayIntentBits.Guilds });
     // 본판 가져오는 것
   }
-  loadCommands() {
-    const commandFiles = fs
+
+  async importFile(filePath: string) {
+    return (await import(filePath))?.default;
+  }
+
+  async loadCommands() {
+    const commandFiles = await fs
       .readdirSync(`./src/commands`)
       .filter((file: string) => file.endsWith(".ts"));
 
@@ -32,16 +37,20 @@ export class ExtendedClient extends Client {
     }
     // ./ = 현재 다이렉토리 ../ 상위 다이렉토리
   }
-  async importFile(filePath: string) {
-    return (await import(filePath))?.default;
-  }
+
   async loadEvents() {
     const eventFiles = await globPromise(`
       ${__dirname}/../events/*{.ts,.js}`);
-    console.log({ eventFiles });
+
     eventFiles.forEach(async (file) => {
       const event: Event<keyof ClientEvents> = await this.importFile(file);
+      this.on(event.event, event.run);
     });
+  }
+
+  start() {
+    this.loadCommands();
+    this.loadEvents();
   }
 }
 

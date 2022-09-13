@@ -9,8 +9,7 @@ const {} = require("discord.js");
 
 export const client = new ExtendedClient();
 
-client.loadCommands();
-client.loadEvents();
+client.start();
 // client.commands = new Collection();
 // declare module "discord.js" {
 //   export interface Client {
